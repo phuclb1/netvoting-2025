@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${PROJECT_NAME}-api-cfm
+  namespace: ${PROJECT_NAME}-${PROJECT_ENV}
+data:
+  ALLOWED_HOSTS: '["http://localhost:5173", "https://${PROJECT_NAME}-${PROJECT_ENV}.talena.ai"]'
+  APP_ID: 82cca964-92c8-4daf-a753-5080d61d3ccd
+  APP_PASSWORD: ${BOT_DEV_SECRET}

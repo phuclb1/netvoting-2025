@@ -1,0 +1,11 @@
+[MASTER]
+disable=
+    C0114, # missing-module-docstring
+    C0115, # missing-class-docstring
+    C0116, # missing-function-docstring
+    R0903, # too-few-public-methods
+    W0108, # lambda may not be necessary
+    R0913, # too-many-arguments
+    R0801, # duplicate-code
+    E1136, # unsubscriptable-object
+    W0719, # broad-exception-raised

@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ${PROJECT_NAME}-web-${PROJECT_ENV}
+  namespace: ${PROJECT_NAME}-${PROJECT_ENV}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`${PROD_DOMAIN}`)
+    kind: Rule
+    services:
+    - name: ${PROJECT_NAME}-web
+      port: 80

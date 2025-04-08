@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${PROJECT_NAME}-api-cfm
+  namespace: ${PROJECT_NAME}-${PROJECT_ENV}
+data:
+  DEPLOYMENT_ENV: ${PROJECT_ENV}
+  PROJECT_NAME: ${PROJECT_NAME}
+  SECRET_KEY: ${SECRET_KEY}
+  PG_URL: postgresql+asyncpg://postgres:${PG_PASSWORD}@pgbouncer:5432/${PROJECT_NAME}-${PROJECT_ENV}
+  PG_URL_AGENT: postgresql://postgres:${PG_PASSWORD}@pgbouncer:5432/${PROJECT_NAME}-${PROJECT_ENV}
+  REDIS_HOST: redis-master-0.redis-headless.${PROJECT_NAME}-${PROJECT_ENV}.svc.cluster.local
+  REDIS_PORT: "6379"
+  LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY}
+  LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY}
+  LANGFUSE_HOST: https://langfuse.talena.ai
+  IS_USE_LANGFUSE: "true"
+  QDRANT_URL: qdrant.talena.ai
+  QDRANT_PORT: "443"
+  QDRANT_HTTPS: "true"
+  QDRANT_API_KEY: ${QDRANT_API_KEY}
+  AZURE_CVPOOL_CONTAINER: cvpools
+  AZURE_PICTURE_CONTAINER: room-imgs
+  AZURE_CONNECTION_STRING: ${AZURE_CONNECTION_STRING}
+  INSIGHT_BATCH: "5"
+  PARSER_BATCH: "5"
+  MIN_NUM_OF_RADAR_SKILLS: "3"
+  NUM_OF_HARD_SKILLS: "5"
+  NUM_OF_SOFT_SKILLS: "3"
+  openai_api_version: "2024-02-01"
+  openai_azure_endpoint: https://tvf-rd-openai-jp.openai.azure.com/
+  openai_engine: gpt-4o-mini
+  openai_model_name: gpt-4o-mini
+  openai_api_type: azure
+  openai_use_key: "true"
+  openai_api_key: ${OPENAI_API_KEY}
+  openai_embedding_3_deployment: text-embbeding-3-large
+  admin_email: ${ADMIN_EMAIL}
+  admin_password: ${ADMIN_PASSWORD}
+  tenant_id: ${MEETING_TENANT_ID}
+  client_id: ${MEETING_CLIENT_ID}
+  client_secret: ${MEETING_CLIENT_SECRET}
+  authority: "https://login.microsoftonline.com/${MEETING_TENANT_ID}"
+  grand_type: "client_credentials"
+  NOTIFICATION_URL: https://${PROJECT_NAME}-api-${PROJECT_ENV}.talena.ai/api/v1/users/webhook/user-changes

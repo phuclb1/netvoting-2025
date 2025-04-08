@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${PROJECT_NAME}-web
+  namespace: ${PROJECT_NAME}-${PROJECT_ENV}
+spec:
+  type: ClusterIP
+  selector:
+    app: ${PROJECT_NAME}-web
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP

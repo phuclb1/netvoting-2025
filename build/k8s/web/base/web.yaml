@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${PROJECT_NAME}-web
+  namespace: ${PROJECT_NAME}-${PROJECT_ENV}  
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ${PROJECT_NAME}-web
+  template:
+    metadata:
+      labels:
+        app: ${PROJECT_NAME}-web
+    spec:
+      containers:
+        - name: ${PROJECT_NAME}-web
+          image: ${WEB_IMAGE_TAG}
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          env:
+            - name: LC_ALL
+              value: C.UTF-8
+            - name: LANG
+              value: C.UTF-8
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "10m"
+            limits:
+              memory: "1G"
+              cpu: "1"
+      restartPolicy: Always

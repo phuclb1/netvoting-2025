@@ -1,0 +1,60 @@
+services:
+  pg:
+    image: postgres:14-alpine
+    container_name: ${PROJECT_NAME}_pg
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    environment:
+      TZ: UTC
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: ${PROJECT_NAME}
+    ports:
+      - 25432:5432
+
+  redis:
+    image: redis:6-alpine
+    container_name: ${PROJECT_NAME}_redis
+    ports:
+      - 26379:6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    environment:
+      TZ: UTC
+
+  pg-migrate:
+    image: migrate/migrate:v4.15.2
+    container_name: ${PROJECT_NAME}_pg_migrate
+    restart: "no"
+    entrypoint: ""
+    volumes:
+      - ../../api/data:/api-migrations
+    environment:
+      TZ: UTC
+      PG_URL: postgres://${PROJECT_NAME}:@pg:5432/${PROJECT_NAME}?sslmode=disable
+      POSTGRES_USER: ${PROJECT_NAME}
+      PGPASSWORD: ""
+
+  api:
+    image: ${PROJECT_NAME}/backend:base
+    container_name: ${PROJECT_NAME}_api
+    ports:
+      - ${PORT}:8080
+    volumes:
+      - ../../api:/api
+    environment:
+      - deployment_env=dev
+      - secret_key=${PROJECT_NAME}-secret-key
+      - pg_url=postgresql+asyncpg://${PROJECT_NAME}:@pg:5432/${PROJECT_NAME}
+      - redis_host=redis
+      - redis_port=6379
+      - PROJECT_NAME=${PROJECT_NAME}
+      - PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+      - PYTHONPATH=/api
+  
+  

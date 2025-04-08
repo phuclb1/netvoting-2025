@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${PROJECT_NAME}-api
+  namespace: ${PROJECT_NAME}-${PROJECT_ENV}
+spec:
+  type: ClusterIP
+  selector:
+    app: ${PROJECT_NAME}-api
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+      protocol: TCP

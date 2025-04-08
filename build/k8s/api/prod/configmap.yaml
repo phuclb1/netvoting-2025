@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${PROJECT_NAME}-api-cfm
+  namespace: ${PROJECT_NAME}-${PROJECT_ENV}
+data:
+  ALLOWED_HOSTS: '["https://${PROD_DOMAIN}"]'
+  APP_ID: 1b6795d5-2363-4e6a-b57c-ed8b428e2845
+  APP_PASSWORD: ${BOT_PROD_SECRET}
+  PG_URL: postgresql+asyncpg://${PROD_PG_URL}
+  PG_URL_AGENT: postgresql://${PROD_PG_URL}

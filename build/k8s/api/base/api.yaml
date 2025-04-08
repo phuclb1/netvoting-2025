@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${PROJECT_NAME}-api
+  namespace: ${PROJECT_NAME}-${PROJECT_ENV}
+  annotations:
+    configmap.reloader.stakater.com/reload: "${PROJECT_NAME}-api-cfm"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ${PROJECT_NAME}-api
+  template:
+    metadata:
+      labels:
+        app: ${PROJECT_NAME}-api
+    spec:
+      containers:
+        - name: ${PROJECT_NAME}-api
+          image: ${API_IMAGE_TAG}
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          workingDir: /api
+          env:
+            - name: LC_ALL
+              value: C.UTF-8
+            - name: LANG
+              value: C.UTF-8
+          envFrom:
+            - configMapRef:
+                name: ${PROJECT_NAME}-api-cfm
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "10m"
+            limits:
+              memory: "1G"
+              cpu: "1"
+      restartPolicy: Always

@@ -1,0 +1,18 @@
+auth:
+  enabled: false
+  sentinel: false
+master:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  updateStrategy:
+    type: OnDelete
+  persistence:
+    sizeLimit: "1Gi"
+    size: 1Gi
+
+architecture: standalone
