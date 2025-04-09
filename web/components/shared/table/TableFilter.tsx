@@ -16,7 +16,7 @@ export function TableFilter(
 
   return (
     <Input
-      placeholder="Search"
+      placeholder="Tìm kiếm..."
       {...props}
       onChange={(e) => setKeyword(e.target.value)}
       value={value}

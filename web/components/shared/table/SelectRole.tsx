@@ -41,35 +41,35 @@ const SelectRole: React.FC<SelectRoleProps> = ({
   };
 
   return (
-    <Popover open={open} onOpenChange={() => setOpen(!open)}>
+    <Popover onOpenChange={() => setOpen(!open)} open={open}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
-          size="sm"
           className="ml-auto hidden h-10 lg:flex"
+          size="sm"
+          variant="outline"
         >
           <Settings2 />
-          Select Roles
+          Chọn quyền
           <ChevronDownIcon className="ml-2 h-4 w-4" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="p-0 bg-white border border-meta-9 w-[200px]"
         align="end"
+        className="p-0 bg-white border border-meta-9 w-[200px]"
       >
         <Command>
           <CommandList>
-            <CommandEmpty>No roles found.</CommandEmpty>
+            <CommandEmpty>Không tìm thấy quyền.</CommandEmpty>
             <CommandGroup>
               {userRoles.map((role) => {
-                const isSelected = selectedRoles.includes(role);
+                const isSelected = selectedRoles.includes(role.value);
                 return (
                   <CommandItem
-                    key={role}
-                    onSelect={() => handleRoleChange(role, !isSelected)}
                     className="flex items-center justify-between"
+                    key={role.value}
+                    onSelect={() => handleRoleChange(role.value, !isSelected)}
                   >
-                    <span>{role}</span>
+                    <span>{role.label}</span>
                     <div
                       className={cn(
                         "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
@@ -90,16 +90,16 @@ const SelectRole: React.FC<SelectRoleProps> = ({
             <CommandGroup>
               <div className="flex items-center justify-center w-full gap-2">
                 <CommandItem
-                  onSelect={() => onRoleChange(userRoles)}
                   className="justify-center text-center text-primary rounded cursor-pointer hover:opacity-60"
+                  onSelect={() => onRoleChange(userRoles.map((role) => role.value))}
                 >
-                  Select All
+                  Chọn tất cả
                 </CommandItem>
                 <CommandItem
-                  onSelect={handleClearAll}
                   className="justify-center text-center text-primary rounded cursor-pointer hover:opacity-60"
+                  onSelect={handleClearAll}
                 >
-                  Clear All
+                  Hủy chọn tất cả
                 </CommandItem>
               </div>
             </CommandGroup>

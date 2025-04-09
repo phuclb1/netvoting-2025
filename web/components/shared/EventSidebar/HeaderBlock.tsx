@@ -12,7 +12,7 @@ export function HeaderBlock() {
     <SidebarHeader>
       <SidebarMenu>
         <SidebarMenuItem>
-          <Link href="/">
+          <Link href="/events-management">
             <SidebarMenuButton
               className="cursor-pointer font-semibold text-[18px] data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               size="lg"

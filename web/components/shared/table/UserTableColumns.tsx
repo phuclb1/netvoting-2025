@@ -32,9 +32,9 @@ const HeaderCheckbox = ({ table }: { table: Table<User> }) => {
 
   return (
     <input
-      ref={headerCheckboxRef}
       checked={isAllUsersSelected}
       onChange={isSelectedAllUsersChange}
+      ref={headerCheckboxRef}
       type="checkbox"
     />
   );
@@ -53,7 +53,7 @@ export const userTableColumns = [
     ),
   }),
   col.accessor("name", {
-    header: "Name",
+    header: "Họ và tên",
     cell: ({ getValue, row }) => (
       <Link
         className="underline hover:no-underline"
@@ -65,25 +65,12 @@ export const userTableColumns = [
   }),
   col.accessor("email", { header: "Email" }),
   col.accessor("role", {
-    header: "Role",
+    header: "Quyền",
     cell: ({ getValue }) => <Badge variant="secondary">{getValue()}</Badge>,
   }),
-  col.accessor("phone_number", { header: "Phone Number" }),
-  col.accessor("address", { header: "Address" }),
-  col.accessor("created_at", {
-    header: "Created at",
-    cell: ({ getValue }) => {
-      const val = getValue();
-      return val ? new Date(val).toLocaleString() : null;
-    },
-  }),
-  col.accessor("updated_at", {
-    header: "Updated at",
-    cell: ({ getValue }) => {
-      const val = getValue();
-      return val ? new Date(val).toLocaleString() : null;
-    },
-  }),
+  col.accessor("phone_number", { header: "Số điện thoại" }),
+  col.accessor("address", { header: "Địa chỉ" }),
+  col.accessor("shareholder_quantity", { header: "Số cổ phiếu" }),
   col.display({
     id: "action",
     cell: function Action({ row }) {

@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Galaxy Academy",
-  description: "Powered by Techvify",
+  title: "Voting Platform",
+  description: "Powered by Netnam",
 };
 
 export default async function RootLayout({

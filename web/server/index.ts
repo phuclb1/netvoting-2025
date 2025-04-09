@@ -2,7 +2,7 @@ import { authedProcedure, publicProcedure, router } from "./trpc";
 import { userRouter } from "./routes/user";
 import { authRouter } from "./routes/auth";
 import { exampleRouter } from "./routes/example";
-import { centerRouter } from "./routes/center";
+import { eventRouter } from "./routes/event";
 
 export const appRouter = router({
   auth: authRouter,
@@ -11,8 +11,8 @@ export const appRouter = router({
     protected: authedProcedure.query(async () => "this is a protected string"),
   },
   test: exampleRouter,
-  center: centerRouter,
   user: userRouter,
+  event: eventRouter,
 });
 // Export type router type signature,
 // NOT the router itself.

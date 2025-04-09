@@ -39,7 +39,7 @@ export function ConfirmDialog({
     const onOpenChange = propOnChange !== undefined ? propOnChange : _setOpen;
 
     return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
+        <Dialog onOpenChange={onOpenChange} open={open} >
             {children ? (
                 <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
             ) : null}
@@ -56,19 +56,19 @@ export function ConfirmDialog({
 
                     <div className="flex justify-end gap-2">
                         <Button
-                            variant="outline"
                             onClick={() => {
                                 onOpenChange(false);
                             }}
+                            variant="outline"
                         >
                             Cancel
                         </Button>
                         <Button
-                            variant={variant}
                             onClick={() => {
                                 if (onConfirm) onConfirm();
                                 onOpenChange(false);
                             }}
+                            variant={variant}
                         >
                             {text?.action ?? "Confirm"}
                         </Button>

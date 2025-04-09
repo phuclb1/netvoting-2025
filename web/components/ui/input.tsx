@@ -29,9 +29,9 @@ export const Input = ({
       />
       {type === "password" && (
         <button
-          type="button"
-          onClick={handleTogglePassword}
           className="absolute cursor-pointer right-3 top-1/2 transform -translate-y-1/2 text-sm text-muted-foreground"
+          onClick={handleTogglePassword}
+          type="button"
         >
           {showPassword ? <Eye size={15} /> : <EyeClosed size={15} />}
         </button>

@@ -49,6 +49,7 @@
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "fetch-to-curl": "^0.6.0",
+    "html5-qrcode": "^2.3.8",
     "jotai": "^2.11.0",
     "jotai-devtools": "^0.10.1",
     "jotai-optics": "^0.4.0",

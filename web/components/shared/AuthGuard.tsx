@@ -1,22 +1,18 @@
-"use client";
-
 import { UserRole } from "@/lib/schemas/user";
-import { useSession } from "next-auth/react";
+import { api } from "@/protocol/trpc/server";
 import { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
   viewableFor: UserRole[];
-  loading?: ReactNode;
 }
-export function AuthGuardClient({ children, viewableFor, loading }: Props) {
-  const { data } = useSession();
+export async function AuthGuard({ children, viewableFor }: Props) {
+  try {
+    const auth = await api.auth.me();
+    if (!viewableFor.includes(auth.role)) return null;
 
-  if (!data?.user?.role) return loading ?? null;
-
-  if (!viewableFor.includes(data.user?.role)) {
+    return children;
+  } catch (_e) {
     return null;
   }
-
-  return children;
 }

@@ -20,27 +20,33 @@ type NavItem = {
 };
 
 // Menu items.
-const navMain: NavItem[] = [
-  {
-    title: ROUTE.HOME.humanresource.root.title,
-    icon: BookOpenText,
-    url: ROUTE.HOME.humanresource.root.path,
-  },
-  {
-    title: ROUTE.HOME.events_management.root.title,
-    icon: Building2,
-    url: ROUTE.HOME.events_management.root.path,
-  },
-];
 
-export function ContentBlock() {
+
+export function ContentBlock({eventId}: {eventId: string}) {
   const pathname = usePathname();
+  const navEvents: NavItem[] = [
+    {
+      title: ROUTE.EVENT_MANAGE.info.title,
+      icon: BookOpenText,
+      url: ROUTE.EVENT_MANAGE.info.path(eventId),
+    },
+    {
+      title: ROUTE.EVENT_MANAGE.users.title,
+      icon: Building2,
+      url: ROUTE.EVENT_MANAGE.users.path(eventId),
+    },
+    {
+      title: ROUTE.EVENT_MANAGE.votingCategories.title,
+      icon: Building2,
+      url: ROUTE.EVENT_MANAGE.votingCategories.path(eventId),
+    },
+  ];
   return (
     <SidebarContent>
       <SidebarGroup>
         <SidebarGroupContent>
           <SidebarMenu className="gap-2">
-            {navMain.map((item) => (
+            {navEvents.map((item) => (
               <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild className="cursor-pointer" isActive={pathname.startsWith(item.url)}>
                     <Link href={item.url}>

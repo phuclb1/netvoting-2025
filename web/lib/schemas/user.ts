@@ -1,35 +1,19 @@
 import { z } from "zod";
 
 export const userRoleEnum = z.enum([
-  "BLD",
-  "Director",
-  "Coach",
-  "Manager",
-  "Athlete",
-  "Student",
-  "Parent",
+  "ADMIN",
+  "SHAREHOLDER",
+  "STAFF",
+  "GUEST",
 ]);
 export type UserRole = z.TypeOf<typeof userRoleEnum>;
 
-// export const userRoles = [
-//   { label: "BLD", value: "BLD" },
-//   { label: "Director", value: "Director" },
-//   { label: "Coach", value: "Coach" },
-//   { label: "Manager", value: "Manager" },
-//   { label: "Athlete", value: "Athlete" },
-//   { label: "Student", value: "Student" },
-//   { label: "Parent", value: "Parent" },
-// ];
-
 export const userRoles = [
-  "BLD",
-  "Director",
-  "Coach",
-  "Manager",
-  "Athlete",
-  "Student",
-  "Parent",
+  { label: "Admin", value: "ADMIN" },
+  { label: "Cổ đông", value: "SHAREHOLDER" },
+  { label: "Khách mời", value: "GUEST" },
 ];
+
 const baseUserSchema = z.object({
   name: z.string().min(1, { message: "Name must be required" }),
   email: z.string().email(),

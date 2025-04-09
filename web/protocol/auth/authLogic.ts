@@ -23,6 +23,7 @@ export const authLogic: NextAuthOptions = {
       name: "Credentials",
       credentials: { email: {}, password: {} },
       async authorize(credentials, _req) {
+        
         const res = await ky.post(
           `${env.BACKEND_API_URL}/api/v1/auth/login/password`,
           {
@@ -33,7 +34,9 @@ export const authLogic: NextAuthOptions = {
           }
         );
 
+        console.log(res);
         const jsoned = await res.json<Session>();
+        console.log(jsoned);
         if (debug) console.log("[NEXTAUTH][AUTHORIZE]", jsoned);
 
         // If no error and we have user data, return it

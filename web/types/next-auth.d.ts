@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { JWT } from "next-auth/jwt";
 import type { Account, DefaultSession, User } from "next-auth";
+import { UserRole } from "@/lib/schemas/user";
 
 declare module "next-auth" {
   interface User {
@@ -12,6 +13,7 @@ declare module "next-auth" {
     role: UserRole;
     id: string;
     ms_id: string | null;
+    shareholder_quantity: number | null;
     created_at?: string | number;
     updated_at?: string | number;
     hashed_token?: string | null;

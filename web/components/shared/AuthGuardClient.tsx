@@ -1,7 +1,7 @@
 "use client";
 
 import { UserRole } from "@/lib/schemas/user";
-import { api } from "@/protocol/trpc/client";
+import { useSession } from "next-auth/react";
 import { ReactNode } from "react";
 
 interface Props {
@@ -10,11 +10,11 @@ interface Props {
   loading?: ReactNode;
 }
 export function AuthGuardClient({ children, viewableFor, loading }: Props) {
-  const { data } = api.auth.me.useQuery();
+  const { data } = useSession();
 
-  if (!data) return loading ?? null;
+  if (!data?.user?.role) return loading ?? null;
 
-  if (!viewableFor.includes(data.role)) {
+  if (!viewableFor.includes(data.user?.role)) {
     return null;
   }
 

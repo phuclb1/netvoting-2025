@@ -41,7 +41,6 @@ export const getTitleFromUrl = (url: string): string => {
   const routes = getAllRoutes(ROUTE);
 
   for (const route of routes) {
-    console.log("title", route.title);
     if (typeof route.path === "string" && route.path === url) {
       return route.title;
     } else if (isPathFunction(route.path)) {
